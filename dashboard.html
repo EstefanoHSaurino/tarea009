@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Principal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Usuarios Registrados</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="width:100%">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody"></tbody>
+  </table>
+
+  <br>
+  <button onclick="logout()">Cerrar sesión</button>
+</div>
+    
+<script>
+  const tbody = document.getElementById('userTableBody');
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="2">No hay usuarios registrados.</td></tr>';
+  } else {
+    users.forEach(user => {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${user.username}</td><td>${user.password}</td>`;
+      tbody.appendChild(row);
+    });
+  }
+
+  function logout() {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
